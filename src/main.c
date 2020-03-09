@@ -9,5 +9,9 @@
 
 int main(int ac, char **av)
 {
+    if (ac == 2 && my_strcmp(av[1], "-h") == 1) {
+        display_help();
+        return (0);
+    }
     return (0);
 }
