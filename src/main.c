@@ -9,7 +9,7 @@
 
 int main(int ac, char **av)
 {
-    if (ac == 2 && my_strcmp(av[1], "-h") == 1) {
+    if (ac == 2 && my_strcmp(av[1], "--help") == 1) {
         display_help();
         return (0);
     }

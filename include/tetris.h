@@ -13,5 +13,6 @@ int my_strcmp(char const *str1, char const *str2);
 void my_putstr(char const *str);
 int my_strlen(char *const str);
 void write_error(char *str);
+void display_help(void);
 
 #endif
