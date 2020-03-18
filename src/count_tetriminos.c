@@ -10,9 +10,10 @@
 char *get_after_point(char *name)
 {
     int point = 0;
+    int j = 0;
     char *after = malloc(sizeof(char) * my_strlen(name));
 
-    for (int i = 0, j = 0; name[i] != '\0'; i++) {
+    for (int i = 0; name[i] != '\0'; i++) {
         if (name[i] == '.')
             point++;
         if (point >= 1)
@@ -21,6 +22,7 @@ char *get_after_point(char *name)
         else
             continue;
     }
+    after[j] = '\0';
     return (after);
 }
 
@@ -63,8 +65,10 @@ int nbr_tetriminos(char *str)
     }
     while ((read = readdir(dir)) != 0) {
         after = get_after_point(read->d_name);
-        if (my_strcmp(after, ".tetrimino"))
+        if (my_strcmp(after, ".tetrimino")) {
+            printf("%s %d\n", after, nbr);
             nbr = nbr + 1;
+        }
         free(after);
     }
     closedir(dir);

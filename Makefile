@@ -27,6 +27,9 @@ CPPFLAGS=	-I./include/
 all	:	$(OBJ)
 		gcc $(CFLAGS) -o $(NAME) $(SRC) $(CPPFLAGS)
 
+debug	: 	CFLAGS += -g3
+debug	:	all
+
 clean	:
 		rm -f $(OBJ)
 
@@ -35,4 +38,4 @@ fclean	:	clean
 
 re	:	fclean all
 
-.PHONY	:	all clean fclean re
+.PHONY	:	all debug clean fclean re
