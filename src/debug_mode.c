@@ -28,7 +28,7 @@ int get_space(char *str)
 void stock_stats(tetris_t *t, char *buff, long int size, int nbr)
 {
     int i = 0;
-    char *stat = malloc(sizeof(char) * size);
+    char *stat = malloc(sizeof(char *) * size);
     char **split = malloc(sizeof(char *) * 3);
 
     for (;buff[i] != '\n' || buff[i] == '\0'; i++)
@@ -37,8 +37,8 @@ void stock_stats(tetris_t *t, char *buff, long int size, int nbr)
     if (get_space(stat) != 2)
         t->valid[nbr] = 0;
     for (int j = 0; j != 3; j++)
-        split[j] = malloc(sizeof(char) * my_strlen(stat));
-    split = split_str(stat, split);    
+        split[j] = malloc(sizeof(char) * 2);
+    split = split_str(stat, split);
     for (int j = 0; j != 3; j++)
         free(split[j]);
     free(split);
