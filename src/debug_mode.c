@@ -34,11 +34,10 @@ void stock_stats(tetris_t *t, char *buff, long int size, int nbr)
     for (;buff[i] != '\n' || buff[i] == '\0'; i++)
         stat[i] = buff[i];
     stat[i] = '\0';
-    printf("%s\n", stat);
     if (get_space(stat) != 2)
         t->valid[nbr] = 0;
     for (int j = 0; j != 3; j++)
-        split[i] = malloc(sizeof(char) * my_strlen(stat));
+        split[j] = malloc(sizeof(char) * my_strlen(stat));
     split = split_str(stat, split);    
     for (int j = 0; j != 3; j++)
         free(split[j]);
