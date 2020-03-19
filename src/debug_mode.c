@@ -9,8 +9,10 @@
 
 void get_address(tetris_t *t)
 {
-    for (int i = 0; i != t->nbr_t; i++)
+    for (int i = 0; i != t->nbr_t; i++) {
         t->address[i] = my_strcat("./tetriminos/", t->address[i]);
+        t->address[i] = my_strcat(t->address[i], ".tetrimino");
+    }
 }
 
 int get_space(char *str)
@@ -31,7 +33,7 @@ void stock_stats(tetris_t *t, char *buff, long int size, int nbr)
 
     for (;buff[i] != '\n' || buff[i] == '\0'; i++)
         stat[i] = buff[i];
-    buff[i] = '\0';
+    stat[i] = '\0';
     printf("%s\n", stat);
     if (get_space(stat) != 2)
         t->valid[nbr] = 0;
@@ -63,9 +65,7 @@ void get_stats(tetris_t *t)
             t->valid[i] = 0;
             continue;
         }
-//        printf("%s %ld\n", buff, st.st_size, i);
         stock_stats(t, buff, st.st_size, i);
-//        printf("\n");
         free(buff);
     }
 }

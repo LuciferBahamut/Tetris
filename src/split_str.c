@@ -9,15 +9,16 @@
 
 char **split_str(char *str, char **tab)
 {
-    for (int i = 0, j = 0, z = 0; str[i] != '\0'; i++) {
+    for (int i = 0, j = 0, z = 0; str[i] != '\0'; i++, z++) {
         if (str[i] == ' ') {
             i++;
             j++;
             z = 0;
         }
+        printf("%d, %c\n", j, str[i]);
         tab[j][z] = str[i];
     }
-    for (int i = 0; i != 3; i++)
-        printf("%s\n", tab[i]);
+    for (int u = 0; u != 3; u++)
+        printf("%s", tab[u]);
     return (tab);
 }

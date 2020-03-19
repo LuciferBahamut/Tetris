@@ -50,9 +50,9 @@ void get_names(tetris_t *t)
 
     for (int i = 0; (read = readdir(dir)) != 0; i++)
         if (read->d_name[0] != '.') {
-            t->address[i] = read->d_name;
             before = get_full_names(read->d_name);
             t->names[i] = before;
+            t->address[i] = t->names[i];
         }
     closedir(dir);
 }

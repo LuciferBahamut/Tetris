@@ -8,7 +8,7 @@
 #include "tetris.h"
 #include "help.h"
 
-void display_help(void)
+int display_help(void)
 {
     my_putstr(USAGE);
     my_putstr(OPTIONS);
@@ -24,4 +24,5 @@ void display_help(void)
     my_putstr(OPTIONSA);
     my_putstr(OPTIONSB);
     my_putstr(OPTIONSC);
+    return (SUCCESS);
 }

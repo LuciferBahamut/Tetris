@@ -42,9 +42,10 @@ int main(int ac, char **av)
 
     fill_struct(t);
     switch (getopt_long(ac, av, "", op_l, NULL)) {
-    case 1 : display_help();
-        return (0);
+    case 1 : return (display_help());
     case 11 : display_debug(t);
+        free_struct(t);
+        return (0);
     }
     free_struct(t);
     return (0);

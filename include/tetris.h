@@ -36,7 +36,7 @@ int nbr_tetriminos(char *str);
 void get_names(tetris_t *t);
 void get_address(tetris_t *t);
 
-void display_help(void);
+int display_help(void);
 int display_debug(tetris_t *t);
 
 void my_putchar(char c);
