@@ -48,12 +48,15 @@ void get_names(tetris_t *t)
     struct dirent *read;
     char *before;
 
-    for (int i = 0; (read = readdir(dir)) != 0; i++)
+    for (int i = 0; read = readdir(dir); i++) {
         if (read->d_name[0] != '.') {
             before = get_full_names(read->d_name);
             t->names[i] = before;
             t->address[i] = t->names[i];
         }
+        else
+            i--;
+    }
     closedir(dir);
 }
 
