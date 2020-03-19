@@ -8,14 +8,18 @@
 NAME	=	tetris
 
 SRC	=	src/main.c		\
+		src/fill_struct.c	\
 		src/display_help.c	\
 		src/display_debug.c	\
 		src/count_tetriminos.c	\
+		src/split_str.c		\
+		src/debug_mode.c	\
 		util/my_strlen.c	\
 		util/my_putchar.c	\
 		util/my_putstr.c	\
 		util/my_put_nbr.c	\
 		util/my_strcmp.c	\
+		util/my_strcat.c	\
 		util/write_error.c
 
 OBJ	=	$(SRC:.c=.o)

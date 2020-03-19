@@ -25,12 +25,22 @@ struct option op_l[] =
 
 void free_struct(tetris_t *t)
 {
+    for (int i = 0; i != t->nbr_t; i++) {
+        free(t->address[i]);
+        free(t->names[i]);
+        free(t->size_t[i]);
+    }
+    free(t->names);
+    free(t->address);
+    free(t->valid);
+    free(t);
 }
 
 int main(int ac, char **av)
 {
     tetris_t *t = malloc(sizeof(tetris_t));
 
+    fill_struct(t);
     switch (getopt_long(ac, av, "", op_l, NULL)) {
     case 1 : display_help();
         return (0);

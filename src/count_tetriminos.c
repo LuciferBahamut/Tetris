@@ -22,34 +22,39 @@ char *get_after_point(char *name)
         else
             continue;
     }
-    after[j] = '\0';
+    for (j = 0; after[j] != 'o'; j++);
+    after[j+1] = '\0';
     return (after);
 }
 
-void get_full_names(tetris_t *t, char *str)
+char *get_full_names(char *name)
 {
-    DIR *dir = opendir(str);
-    struct dirent *read;
-    char *after;
+    char *before = malloc(sizeof(char) * my_strlen(name));
 
-    for (int i = 0; (read = readdir(dir)) != 0;) {
-        after = get_after_point(read->d_name);
-        if (my_strcmp(after, ".tetrimino")) {
-            t->names[i] = read->d_name;
-            i++;
+    for (int i = 0; name[i] != '\0'; i++) {
+        if (name[i] == '.') {
+            before[i] = '\0';
+            break;
         }
-        free(after);
+        else
+            before[i] = name[i];
     }
-//    for (int i = 0; i != t->nbr_t; i++)
-//        printf("%s\n", t->names[i]);
-    closedir(dir);
+    return (before);
 }
 
 void get_names(tetris_t *t)
 {
-    int point = 0;
+    DIR *dir = opendir("tetriminos");
+    struct dirent *read;
+    char *before;
 
-    get_full_names(t, "./tetriminos");
+    for (int i = 0; (read = readdir(dir)) != 0; i++)
+        if (read->d_name[0] != '.') {
+            t->address[i] = read->d_name;
+            before = get_full_names(read->d_name);
+            t->names[i] = before;
+        }
+    closedir(dir);
 }
 
 int nbr_tetriminos(char *str)
@@ -63,14 +68,13 @@ int nbr_tetriminos(char *str)
         write_error(STR_ERROR_DIR);
         return (ERROR);
     }
-    while ((read = readdir(dir)) != 0) {
-        after = get_after_point(read->d_name);
-        if (my_strcmp(after, ".tetrimino")) {
-            printf("%s %d\n", after, nbr);
-            nbr = nbr + 1;
+    while ((read = readdir(dir)) != 0)
+        if (read->d_name[0] != '.') {
+            after = get_after_point(read->d_name);
+            if (my_strcmp(after, ".tetrimino"))
+                nbr = nbr + 1;
+            free(after);
         }
-        free(after);
-    }
     closedir(dir);
-    return (nbr + 1);
+    return (nbr);
 }

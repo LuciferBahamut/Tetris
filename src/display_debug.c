@@ -16,21 +16,27 @@ void print_key(char *str, char *key)
 
 void put_nbr_tetriminos(int nbr)
 {
-    my_putstr("Tetrimnos :  ");
+    my_putstr("Tetriminos :  ");
     my_put_nbr(nbr);
     my_putchar('\n');
 }
 
-void put_name_tetriminos(tetris_t *t)
+void put_name_tetriminos_val(char *name)//, int *dim, int color)
 {
+    my_putstr("Tetriminos :  Name ");
+    my_putstr(name);
+    my_putstr("  :  \n");
+}
+
+void put_name_tetriminos_inv(char *name)//, int *dim, int color)
+{
+    my_putstr("Tetriminos :  Name ");
+    my_putstr(name);
+    my_putstr("  :  Error\n");
 }
 
 int display_debug(tetris_t *t)
 {
-    t->nbr_t = nbr_tetriminos("./tetriminos");
-    t->names = malloc(sizeof(char *) * t->nbr_t + 1);
-    t->temp = malloc(sizeof(char *) * t->nbr_t + 1);
-    get_names(t);
     if (t->nbr_t == ERROR)
         return(ERROR);
     my_putstr("*** DEBUG MODE ***\n");
@@ -45,7 +51,12 @@ int display_debug(tetris_t *t)
 //    my_putstr("Level :  ");
 //    my_putstr("Size :  ");
     put_nbr_tetriminos(t->nbr_t);
-    put_name_tetriminos(t);
+    for (int i = 0; i != t->nbr_t; i++) {
+        if (t->valid[i] == 0)
+            put_name_tetriminos_inv(t->names[i]);
+        else
+            put_name_tetriminos_val(t->names[i]);
+    }
     my_putstr("Press any key to start Tetris\n");
     return (SUCCESS);
 }
