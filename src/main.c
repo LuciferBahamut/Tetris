@@ -36,6 +36,8 @@ void free_struct(tetris_t *t)
     free(t->address);
     free(t->valid);
     free(t->shapes);
+    free(t->size_t);
+    free(t->size_g);
     free(t);
 }
 
