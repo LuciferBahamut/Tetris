@@ -42,24 +42,6 @@ char *get_full_names(char *name)
     return (before);
 }
 
-void get_names(tetris_t *t)
-{
-    DIR *dir = opendir("tetriminos");
-    struct dirent *read;
-    char *before;
-
-    for (int i = 0; (read = readdir(dir)) != 0; i++) {
-        if (read->d_name[0] != '.') {
-            before = get_full_names(read->d_name);
-            t->names[i] = before;
-            t->address[i] = t->names[i];
-        }
-        else
-            i--;
-    }
-    closedir(dir);
-}
-
 int nbr_tetriminos(char *str)
 {
     DIR *dir = opendir(str);

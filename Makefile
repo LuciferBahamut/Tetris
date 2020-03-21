@@ -11,8 +11,10 @@ SRC	=	src/main.c		\
 		src/fill_struct.c	\
 		src/display_help.c	\
 		src/display_debug.c	\
+		src/put_debug.c		\
 		src/count_tetriminos.c	\
 		src/split_str.c		\
+		src/count_space.c	\
 		src/debug_mode.c	\
 		util/my_strlen.c	\
 		util/my_putchar.c	\

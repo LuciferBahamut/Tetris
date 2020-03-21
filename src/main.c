@@ -26,13 +26,16 @@ struct option op_l[] =
 void free_struct(tetris_t *t)
 {
     for (int i = 0; i != t->nbr_t; i++) {
+        free(t->shapes[i]);
         free(t->address[i]);
         free(t->names[i]);
         free(t->size_t[i]);
     }
+    free(t->color);
     free(t->names);
     free(t->address);
     free(t->valid);
+    free(t->shapes);
     free(t);
 }
 

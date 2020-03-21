@@ -23,13 +23,31 @@ typedef struct tetris_st
     char **names;
     char **address;
     int *valid;
+    int *color;
     int **size_t;
+    char **shapes;
     int nbr_t;
+    int level;
+    int next;
+    int *size_g;
 } tetris_t;
+
+typedef struct keys_st
+{
+    int left;
+    int right;
+    int turn;
+    int drop;
+    int quit;
+    int pause;
+} keys_t;
 
 void fill_struct(tetris_t *t);
 void get_stats(tetris_t *t);
+int get_space(char *str);
 char **split_str(char *str, char **tab);
+void stock_stats(tetris_t *t, char *buff, long int size, int nbr);
+char *get_full_names(char *name);
 
 char *point(char *name);
 int nbr_tetriminos(char *str);
@@ -37,7 +55,13 @@ void get_names(tetris_t *t);
 void get_address(tetris_t *t);
 
 int display_help(void);
+
 int display_debug(tetris_t *t);
+void put_tetriminos_and_level(char *str, int nbr);
+void put_name_tetriminos_val(char *name, tetris_t *t, int nbr);
+void put_name_tetriminos_inv(char *name);
+void put_next(char *str, int next);
+void put_size(char *str, int *size);
 
 void my_putchar(char c);
 int my_strcmp(char const *str1, char const *str2);

@@ -7,22 +7,26 @@
 
 #include "tetris.h"
 
-void get_address(tetris_t *t)
+void put_stats_in_struct(char **split, tetris_t *t, int nbr)
 {
-    for (int i = 0; i != t->nbr_t; i++) {
-        t->address[i] = my_strcat("./tetriminos/", t->address[i]);
-        t->address[i] = my_strcat(t->address[i], ".tetrimino");
-    }
+    for (int i = 0; i != 2; i++)
+        t->size_t[nbr][i] = atoi(split[i]);
+    t->color[nbr] = atoi(split[2]);
 }
 
-int get_space(char *str)
+void get_tetriminos_shape(char *buff, tetris_t *t, int nbr)
 {
-    int space = 0;
+    int i = 0;
+    int j = 0;
 
-    for (int i = 0; str[i] != '\0'; i++)
-        if (str[i] == ' ')
-            space++;
-    return (space);
+    t->shapes[nbr] = malloc(sizeof(char) * my_strlen(buff));
+    for (; buff[i] != '\n'; i++);
+    for (; buff[i] != '\0'; i++)
+        if ((buff[i] >= ' ' && buff[i] <= '~') || buff[i] == '\n') {
+            t->shapes[nbr][j] = buff[i];
+            j++;
+        }
+    t->shapes[nbr][j] = '\0';
 }
 
 void stock_stats(tetris_t *t, char *buff, long int size, int nbr)
@@ -38,33 +42,12 @@ void stock_stats(tetris_t *t, char *buff, long int size, int nbr)
         t->valid[nbr] = 0;
     for (int j = 0; j != 3; j++)
         split[j] = malloc(sizeof(char) * my_strlen(stat));
-    split = split_str(stat, split);    
+    split = split_str(stat, split);
+    put_stats_in_struct(split, t, nbr);
+    get_tetriminos_shape(buff, t, nbr);
     for (int j = 0; j != 3; j++)
         free(split[j]);
     free(split);
+    free(stat);
 }
 
-void get_stats(tetris_t *t)
-{
-    int fd = 0;
-    int rd = 0;
-    struct stat st;
-    char *buff;
-
-    for (int i = 0; i != t->nbr_t; i++) {
-        stat(t->address[i], &st);
-        fd = open(t->address[i], O_RDONLY);
-        if (fd == -1) {
-            t->valid[i] = 0;
-            continue;
-        }
-        buff = malloc(sizeof(char) * st.st_size);
-        rd = read(fd, buff, st.st_size);
-        if (rd == -1) {
-            t->valid[i] = 0;
-            continue;
-        }
-        stock_stats(t, buff, st.st_size, i);
-        free(buff);
-    }
-}

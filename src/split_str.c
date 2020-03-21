@@ -20,9 +20,5 @@ char **split_str(char *str, char **tab)
         }
         tab[j][z] = str[i];
     }
-    for (int i = 0, len = 0; i != 3; i++) {
-        len = my_strlen(tab[i]);
-        printf("%s %d\n", tab[i], len);
-    }
     return (tab);
 }
