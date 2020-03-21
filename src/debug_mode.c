@@ -41,15 +41,10 @@ void stock_stats(tetris_t *t, char *buff, long int size, int nbr)
     if (get_space(stat) != 2)
         t->valid[nbr] = 0;
     for (int j = 0; j != 3; j++)
-<<<<<<< HEAD
         split[j] = malloc(sizeof(char) * my_strlen(stat));
     split = split_str(stat, split);
     put_stats_in_struct(split, t, nbr);
     get_tetriminos_shape(buff, t, nbr);
-=======
-        split[j] = malloc(sizeof(char) * 2);
-    split = split_str(stat, split);
->>>>>>> 14b4189cbe83177d65f45dd2cad9d28324e4de0c
     for (int j = 0; j != 3; j++)
         free(split[j]);
     free(split);
