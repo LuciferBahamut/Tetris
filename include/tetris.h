@@ -9,6 +9,8 @@
 #define __TETRIS_H__
 
 #include <getopt.h>
+#include <curses.h>
+#include <term.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -17,6 +19,17 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+
+typedef struct keys_st
+{
+    char *term;
+    int left;
+    int right;
+    int turn;
+    int drop;
+    int quit;
+    int pause;
+} keys_t;
 
 typedef struct tetris_st
 {
@@ -32,20 +45,11 @@ typedef struct tetris_st
     int *size_g;
 } tetris_t;
 
-typedef struct keys_st
-{
-    int left;
-    int right;
-    int turn;
-    int drop;
-    int quit;
-    int pause;
-} keys_t;
-
-void fill_struct(tetris_t *t);
+void fill_struct(tetris_t *t, keys_t *key, char **envp);
 void get_stats(tetris_t *t);
 int get_space(char *str);
-char **split_str(char *str, char **tab);
+void get_term(keys_t *key, char **env);
+char **split_str(char *str, char **tabb);
 void stock_stats(tetris_t *t, char *buff, long int size, int nbr);
 char *get_full_names(char *name);
 
@@ -77,6 +81,8 @@ void write_error(char *str);
 
 #define ERROR 84
 #define SUCCESS 0
+#define TRUE 1
+#define FALSE 0
 
 #define STR_ERROR_DIR "could not open directory\n"
 

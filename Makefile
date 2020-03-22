@@ -9,6 +9,7 @@ NAME	=	tetris
 
 SRC	=	src/main.c		\
 		src/fill_struct.c	\
+		src/fill_struct_bis.c	\
 		src/display_help.c	\
 		src/display_debug.c	\
 		src/sort_alpha.c	\
@@ -33,8 +34,10 @@ CFLAGS	=	-W -Wextra -Wall
 
 CPPFLAGS=	-I./include/
 
+LDFLAGS	=	-lncurses
+
 all	:	$(OBJ)
-		gcc $(CFLAGS) -o $(NAME) $(SRC) $(CPPFLAGS)
+		gcc $(CFLAGS) -o $(NAME) $(SRC) $(CPPFLAGS) $(LDFLAGS)
 
 debug	: 	CFLAGS += -g3
 debug	:	all
