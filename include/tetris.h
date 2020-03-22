@@ -52,9 +52,11 @@ char *get_full_names(char *name);
 char *point(char *name);
 int nbr_tetriminos(char *str);
 void get_names(tetris_t *t);
+void sort_names_alpha(tetris_t *t);
+
 void get_address(tetris_t *t);
 
-int display_help(void);
+int display_help(char *bin_name);
 
 int display_debug(tetris_t *t);
 void put_tetriminos_and_level(char *str, int nbr);
@@ -64,7 +66,9 @@ void put_next(char *str, int next);
 void put_size(char *str, int *size);
 
 void my_putchar(char c);
-int my_strcmp(char const *str1, char const *str2);
+int my_strcmp(char *str1, char const *str2);
+int my_strcmp_s(char const *str1, char const *str2);
+char *my_strcpy(char *dest, char const *src);
 char *my_strcat(char *dest, char const *src);
 void my_putstr(char const *str);
 void my_put_nbr(int nb);

@@ -22,7 +22,7 @@ void get_tetriminos_shape(char *buff, tetris_t *t, int nbr)
     t->shapes[nbr] = malloc(sizeof(char) * my_strlen(buff));
     for (; buff[i] != '\n'; i++);
     for (; buff[i] != '\0'; i++)
-        if ((buff[i] >= ' ' && buff[i] <= '~') || buff[i] == '\n') {
+        if (buff[i] == ' ' || buff[i] == '*' || buff[i] == '\n') {
             t->shapes[nbr][j] = buff[i];
             j++;
         }

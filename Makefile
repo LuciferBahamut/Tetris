@@ -11,6 +11,7 @@ SRC	=	src/main.c		\
 		src/fill_struct.c	\
 		src/display_help.c	\
 		src/display_debug.c	\
+		src/sort_alpha.c	\
 		src/put_debug.c		\
 		src/count_tetriminos.c	\
 		src/split_str.c		\
@@ -21,6 +22,8 @@ SRC	=	src/main.c		\
 		util/my_putstr.c	\
 		util/my_put_nbr.c	\
 		util/my_strcmp.c	\
+		util/my_strcmp_s.c	\
+		util/my_strcpy.c	\
 		util/my_strcat.c	\
 		util/write_error.c
 

@@ -46,7 +46,7 @@ int main(int ac, char **av)
     tetris_t *t = malloc(sizeof(tetris_t));
 
     switch (getopt_long(ac, av, "", op_l, NULL)) {
-    case 1 : return (display_help());
+    case 1 : return (display_help(av[0]));
     case 11 : fill_struct(t);
         display_debug(t);
         free_struct(t);

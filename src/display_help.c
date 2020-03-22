@@ -8,9 +8,11 @@
 #include "tetris.h"
 #include "help.h"
 
-int display_help(void)
+int display_help(char *bin_name)
 {
     my_putstr(USAGE);
+    my_putstr(bin_name);
+    my_putstr(USAGE2);
     my_putstr(OPTIONS);
     my_putstr(OPTIONS1);
     my_putstr(OPTIONS2);

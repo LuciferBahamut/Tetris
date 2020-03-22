@@ -8,7 +8,8 @@
 #ifndef __HELP_H__
 #define __HELP_H__
 
-#define USAGE "Usage:  ./tetris [options]\nOptions:\n"
+#define USAGE "Usage:  "
+#define USAGE2 " [options]\nOptions:\n"
 #define OPTIONS " --help\t\t\tDisplay this help\n -L --level={num}\t"
 #define OPTIONS1 "Start Tetris at level num (def: 1)\n -l --key-left={K}\t"
 #define OPTIONS2 "Move the tetrimino LEFT using the K key (def: left arrow)\n "

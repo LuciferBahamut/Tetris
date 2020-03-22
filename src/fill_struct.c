@@ -31,6 +31,7 @@ void get_names(tetris_t *t)
             i--;
     }
     closedir(dir);
+    sort_names_alpha(t);
 }
 
 void get_address(tetris_t *t)

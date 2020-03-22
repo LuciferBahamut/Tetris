@@ -56,7 +56,7 @@ int nbr_tetriminos(char *str)
     while ((read = readdir(dir)) != 0)
         if (read->d_name[0] != '.') {
             after = get_after_point(read->d_name);
-            if (my_strcmp(after, ".tetrimino"))
+            if (my_strcmp_s(after, ".tetrimino"))
                 nbr = nbr + 1;
             free(after);
         }
