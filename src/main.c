@@ -23,6 +23,17 @@ struct option op_l[] =
     {0, 0, 0, 0}
 };
 
+void free_key(keys_t *key)
+{
+    free(key->left);
+    free(key->right);
+    free(key->turn);
+    free(key->drop);
+    free(key->quit);
+    free(key->pause);
+    free(key);
+}
+
 void free_struct(tetris_t *t, keys_t *key)
 {
     for (int i = 0; i != t->nbr_t; i++) {
@@ -39,17 +50,18 @@ void free_struct(tetris_t *t, keys_t *key)
     free(t->size_t);
     free(t->size_g);
     free(t);
+//    free_key(key);
 }
 
-int main(int ac, char **av, char **envp)
+int main(int ac, char **av)
 {
     tetris_t *t = malloc(sizeof(tetris_t));
     keys_t *key = malloc(sizeof(keys_t));
 
+    fill_struct(t, key);
     switch (getopt_long(ac, av, "", op_l, NULL)) {
     case 1 : return (display_help(av[0]));
-    case 11 : fill_struct(t, key, envp);
-        display_debug(t);
+    case 11 : display_debug(t, key);
         break;
     }
     free_struct(t, key);

@@ -9,39 +9,19 @@
 
 void fill_keys(keys_t *key)
 {
-}
+    int term = setupterm(NULL, STDOUT_FILENO, NULL);
 
-int compare_str(char *str, char *str2)
-{
-    int i = 0;
-
-    while (str2[i] != '\0') {
-        if (str2[i] == str[i])
-            i++;
-        else
-            return (FALSE);
-    }
-    return (TRUE);
-}
-
-void get_term(keys_t *key, char **env)
-{
-    char *temp;
-    int i = 0;
-    int j = 0;
-
-    while (env[i]) {
-        if (compare_str(env[i], "TERM")) {
-            temp = env[i];
-            break;
-        }
-        i++;
-    }
-    key->term = malloc(sizeof(char) * my_strlen(temp));
-    for(i = 0; temp[i] != '='; i++);
-    i++;
-    for(j = 0; temp[i] != '\0'; i++, j++)
-        key->term[j] = temp[i];
-    key->term[j] = '\0';
-    fill_keys(key);
+    key->left = malloc(sizeof(char) * 10);
+    key->left = tigetstr("kcub1");
+    key->right = malloc(sizeof(char) * 10);
+    key->right = tigetstr("kcuf1");
+    key->turn = malloc(sizeof(char) * 10);
+    key->turn = tigetstr("kcuu1");
+    key->drop = malloc(sizeof(char) * 10);
+    key->drop = tigetstr("kcud1");
+    key->quit = malloc(sizeof(char) * 10);
+    key->quit = "q";
+    key->pause = malloc(sizeof(char) * 10);
+    key->pause = " ";
+    term = term + 1;
 }

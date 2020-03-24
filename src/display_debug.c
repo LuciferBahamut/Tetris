@@ -27,27 +27,25 @@ void my_putstr_key(char *key)
 
 void print_key(char *str, char *key)
 {
-    int term = setupterm(NULL, STDOUT_FILENO, NULL);
-
     my_putstr(str);
     if (my_strlen(key) != 1)
-        my_special_putstr(tigetstr(key));
+        my_special_putstr(key);
     else
         my_putstr_key(key);
     my_putchar('\n');
 }
 
-int display_debug(tetris_t *t)
+int display_debug(tetris_t *t, keys_t *key)
 {
     if (t->nbr_t == ERROR)
-        return(ERROR);
+        return (ERROR);
     my_putstr("*** DEBUG MODE ***\n");
-    print_key("Key Left :  ", "kcub1");
-    print_key("Key Right :  ", "kcuf1");
-    print_key("Key Turn :  ", "kcuu1");
-    print_key("Key Drop :  ", "kcud1");
-    print_key("Key Quit :  ", "q");
-    print_key("Key Pause :  ", " ");
+    print_key("Key Left :  ", key->left);
+    print_key("Key Right :  ", key->right);
+    print_key("Key Turn :  ", key->turn);
+    print_key("Key Drop :  ", key->drop);
+    print_key("Key Quit :  ", key->quit);
+    print_key("Key Pause :  ", key->pause);
     put_next("Next :  ", t->next);
     put_tetriminos_and_level("Level :  ", t->level);
     put_size("Size :  ", t->size_g);

@@ -10,8 +10,8 @@
 void put_stats_in_struct(char **split, tetris_t *t, int nbr)
 {
     for (int i = 0; i != 2; i++)
-        t->size_t[nbr][i] = atoi(split[i]);
-    t->color[nbr] = atoi(split[2]);
+        t->size_t[nbr][i] = my_atoi(split[i]);
+    t->color[nbr] = my_atoi(split[2]);
 }
 
 void get_tetriminos_shape(char *buff, tetris_t *t, int nbr)

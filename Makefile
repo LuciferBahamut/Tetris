@@ -26,6 +26,7 @@ SRC	=	src/main.c		\
 		util/my_strcmp_s.c	\
 		util/my_strcpy.c	\
 		util/my_strcat.c	\
+		util/my_atoi.c		\
 		util/write_error.c
 
 OBJ	=	$(SRC:.c=.o)

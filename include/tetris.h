@@ -22,13 +22,12 @@
 
 typedef struct keys_st
 {
-    char *term;
-    int left;
-    int right;
-    int turn;
-    int drop;
-    int quit;
-    int pause;
+    char *left;
+    char *right;
+    char *turn;
+    char *drop;
+    char *quit;
+    char *pause;
 } keys_t;
 
 typedef struct tetris_st
@@ -45,10 +44,10 @@ typedef struct tetris_st
     int *size_g;
 } tetris_t;
 
-void fill_struct(tetris_t *t, keys_t *key, char **envp);
+void fill_struct(tetris_t *t, keys_t *key);
+void fill_keys(keys_t *key);
 void get_stats(tetris_t *t);
 int get_space(char *str);
-void get_term(keys_t *key, char **env);
 char **split_str(char *str, char **tabb);
 void stock_stats(tetris_t *t, char *buff, long int size, int nbr);
 char *get_full_names(char *name);
@@ -61,8 +60,7 @@ void sort_names_alpha(tetris_t *t);
 void get_address(tetris_t *t);
 
 int display_help(char *bin_name);
-
-int display_debug(tetris_t *t);
+int display_debug(tetris_t *t, keys_t *key);
 void put_tetriminos_and_level(char *str, int nbr);
 void put_name_tetriminos_val(char *name, tetris_t *t, int nbr);
 void put_name_tetriminos_inv(char *name);
@@ -77,6 +75,7 @@ char *my_strcat(char *dest, char const *src);
 void my_putstr(char const *str);
 void my_put_nbr(int nb);
 int my_strlen(char *const str);
+int my_atoi(char *str);
 void write_error(char *str);
 
 #define ERROR 84
