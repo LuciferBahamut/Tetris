@@ -7,7 +7,7 @@
 
 #include "tetris.h"
 
-void my_special_putstr(char *str)
+static void my_special_putstr(char *str)
 {
     for (int i = 0; str[i] != '\0'; i++) {
         if (str[i] == '\033')
@@ -17,7 +17,7 @@ void my_special_putstr(char *str)
     }
 }
 
-void my_putstr_key(char *key)
+static void my_putstr_key(char *key)
 {
     if (key[0] == ' ')
         my_putstr("(space)");
@@ -25,7 +25,7 @@ void my_putstr_key(char *key)
         my_putstr(key);
 }
 
-void print_key(char *str, char *key)
+static void print_key(char *str, char *key)
 {
     my_putstr(str);
     if (my_strlen(key) != 1)

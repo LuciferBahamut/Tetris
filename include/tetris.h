@@ -19,6 +19,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <sys/ioctl.h>
 
 typedef struct keys_st
 {
@@ -42,6 +43,7 @@ typedef struct tetris_st
     int level;
     int next;
     int *size_g;
+    int debug;
 } tetris_t;
 
 void fill_struct(tetris_t *t, keys_t *key);
@@ -51,6 +53,8 @@ int get_space(char *str);
 char **split_str(char *str, char **tabb);
 void stock_stats(tetris_t *t, char *buff, long int size, int nbr);
 char *get_full_names(char *name);
+
+int gest_arg_long(int ac, char **av, keys_t *key, tetris_t *t);
 
 char *point(char *name);
 int nbr_tetriminos(char *str);

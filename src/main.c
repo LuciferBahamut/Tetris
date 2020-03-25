@@ -7,23 +7,7 @@
 
 #include "tetris.h"
 
-struct option op_l[] =
-{
-    {"help", 0, 0, 1},
-    {"level=", 0, 0, 2},
-    {"key-left=", 0, 0, 3},
-    {"key-right=", 0, 0, 4},
-    {"key-turn=", 0, 0, 5},
-    {"key-drop=", 0, 0, 6},
-    {"key-quit=", 0, 0, 7},
-    {"key-pause=", 0, 0, 8},
-    {"map-size=", 0, 0, 9},
-    {"without-next", 0, 0, 10},
-    {"debug", 0, 0, 11},
-    {0, 0, 0, 0}
-};
-
-void free_key(keys_t *key)
+static void free_key(keys_t *key)
 {
     free(key->left);
     free(key->right);
@@ -34,7 +18,7 @@ void free_key(keys_t *key)
     free(key);
 }
 
-void free_struct(tetris_t *t, keys_t *key)
+static void free_struct(tetris_t *t, keys_t *key)
 {
     for (int i = 0; i != t->nbr_t; i++) {
         free(t->shapes[i]);
@@ -53,16 +37,34 @@ void free_struct(tetris_t *t, keys_t *key)
 //    free_key(key);
 }
 
+static void init_read(void)
+{
+    char *buffer = malloc(sizeof(char) * 2);
+    static struct termios old;
+    static struct termios new;
+
+    ioctl(0, TCGETS, &old);
+    ioctl(0, TCGETS, &new);
+    new.c_lflag &= ~ECHO;
+    new.c_lflag &= ~ICANON;
+    new.c_cc[VMIN] = 1;
+    new.c_cc[VTIME] = 0;
+    ioctl(0, TCSETS, &new);
+    read(0, buffer, 1);
+    free(buffer);
+    ioctl(0, TCSETS, &old);
+}
+
 int main(int ac, char **av)
 {
     tetris_t *t = malloc(sizeof(tetris_t));
     keys_t *key = malloc(sizeof(keys_t));
 
     fill_struct(t, key);
-    switch (getopt_long(ac, av, "", op_l, NULL)) {
-    case 1 : return (display_help(av[0]));
-    case 11 : display_debug(t, key);
-        break;
+    gest_arg_long(ac, av, key, t);
+    if (t->debug != 0) {
+        display_debug(t, key);
+        init_read();
     }
     free_struct(t, key);
     return (0);

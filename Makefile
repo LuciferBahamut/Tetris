@@ -10,6 +10,7 @@ NAME	=	tetris
 SRC	=	src/main.c		\
 		src/fill_struct.c	\
 		src/fill_struct_bis.c	\
+		src/gest_arg.c		\
 		src/display_help.c	\
 		src/display_debug.c	\
 		src/sort_alpha.c	\

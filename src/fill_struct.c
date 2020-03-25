@@ -7,12 +7,13 @@
 
 #include "tetris.h"
 
-void get_other_things(tetris_t *t)
+static void get_other_things(tetris_t *t)
 {
     t->next = 1;
     t->level = 1;
     t->size_g[0] = 20;
     t->size_g[1] = 10;
+    t->debug = 0;
 }
 
 void get_names(tetris_t *t)

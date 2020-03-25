@@ -7,7 +7,7 @@
 
 #include "tetris.h"
 
-char *get_after_point(char *name)
+static char *get_after_point(char *name)
 {
     int point = 0;
     int j = 0;

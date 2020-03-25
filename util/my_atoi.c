@@ -5,7 +5,7 @@
 ** bistro
 */
 
-int my_getnbr2(char const *str, int j, int s)
+static int my_getnbr2(char const *str, int j, int s)
 {
     long i = 0;
 
