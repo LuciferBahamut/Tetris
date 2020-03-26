@@ -19,6 +19,7 @@ SRC	=	src/main.c		\
 		src/split_str.c		\
 		src/count_space.c	\
 		src/debug_mode.c	\
+		src/game.c		\
 		util/my_strlen.c	\
 		util/my_putchar.c	\
 		util/my_putstr.c	\

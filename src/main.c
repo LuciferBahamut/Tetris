@@ -65,6 +65,7 @@ int main(int ac, char **av)
     if (t->debug != 0) {
         display_debug(t, key);
         init_read();
+        game(t, key);
     }
     free_struct(t, key);
     return (0);

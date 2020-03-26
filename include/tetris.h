@@ -71,6 +71,8 @@ void put_name_tetriminos_inv(char *name);
 void put_next(char *str, int next);
 void put_size(char *str, int *size);
 
+void game(tetris_t *t, keys_t *key);
+
 void my_putchar(char c);
 int my_strcmp(char *str1, char const *str2);
 int my_strcmp_s(char const *str1, char const *str2);
