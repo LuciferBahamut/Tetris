@@ -93,21 +93,12 @@ static char **create_map(int nbl, int nbc)
 
 void fill_keys_map(keys_t *key, map_t *m, tetris_t *t)
 {
-    int term = setupterm(NULL, STDOUT_FILENO, NULL);
-
-    key->left = malloc(sizeof(char) * 10);
-    key->left = tigetstr("kcub1");
-    key->right = malloc(sizeof(char) * 10);
-    key->right = tigetstr("kcuf1");
-    key->turn = malloc(sizeof(char) * 10);
-    key->turn = tigetstr("kcuu1");
-    key->drop = malloc(sizeof(char) * 10);
-    key->drop = tigetstr("kcud1");
-    key->quit = malloc(sizeof(char) * 10);
-    key->quit = "q";
-    key->pause = malloc(sizeof(char) * 10);
-    key->pause = " ";
-    term = term + 1;
+    key->left = 259;
+    key->right = 258;
+    key->turn = 260;
+    key->drop = 261;
+    key->quit = 'q';
+    key->pause = ' ';
     m->map = create_map(t->size_g[0], (t->size_g[1] * 2));
     m->next = create_next();
     m->score = create_score();

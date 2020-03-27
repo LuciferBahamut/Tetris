@@ -23,12 +23,12 @@
 
 typedef struct keys_st
 {
-    char *left;
-    char *right;
-    char *turn;
-    char *drop;
-    char *quit;
-    char *pause;
+    int left;
+    int right;
+    int turn;
+    int drop;
+    int quit;
+    int pause;
 } keys_t;
 
 typedef struct map_st
@@ -60,6 +60,7 @@ int get_space(char *str);
 char **split_str(char *str, char **tabb);
 void stock_stats(tetris_t *t, char *buff, long int size, int nbr);
 char *get_full_names(char *name);
+char **create_tetris_text(void);
 
 int gest_arg_long(int ac, char **av, keys_t *key, tetris_t *t);
 

@@ -23,6 +23,16 @@ struct option op_l[] =
     {0, 0, 0, 0}
 };
 
+static int get_key(char *arg, int key)
+{
+    int n_key = 0;
+
+    if (my_strlen(arg) != 1)
+        return (key);
+    n_key = arg[0];
+    return (n_key);
+}
+
 static void verif_nbr(tetris_t *t, char *str)
 {
     if (my_atoi(str) != 0)
@@ -50,11 +60,11 @@ static void get_size(tetris_t *t, char *str)
 static void gest_arg_long_bis(char c, keys_t *key, tetris_t *t, char *str)
 {
     switch (c) {
-    case 'd' : key->drop = optarg;
+    case 'd' : key->drop = get_key(str, key->drop);
         break;
-    case 'q' : key->quit = str;
+    case 'q' : key->quit = get_key(str, key->quit);
         break;
-    case 'p' : key->pause = str;
+    case 'p' : key->pause = get_key(str, key->pause);
         break;
     case 2 : get_size(t, str);
         break;
@@ -75,11 +85,11 @@ int gest_arg_long(int ac, char **av, keys_t *key, tetris_t *t)
         case 1 : return (display_help(av[0]));
         case 'L' : verif_nbr(t, optarg);
             break;
-        case 'l' : key->left = optarg;
+        case 'l' : key->left = get_key(optarg, key->left);
             break;
-        case 'r' : key->right = optarg;
+        case 'r' : key->right = get_key(optarg, key->right);
             break;
-        case 't' : key->turn = optarg;
+        case 't' : key->turn = get_key(optarg, key->turn);
             break;
         }
         gest_arg_long_bis(c, key, t, optarg);

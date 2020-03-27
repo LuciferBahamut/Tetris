@@ -7,7 +7,7 @@
 
 #include "tetris.h"
 
-static void my_special_putstr(char *str)
+static void my_putstr_key_dir(char *str)
 {
     for (int i = 0; str[i] != '\0'; i++) {
         if (str[i] == '\033')
@@ -17,21 +17,51 @@ static void my_special_putstr(char *str)
     }
 }
 
-static void my_putstr_key(char *key)
+static void handle_other_key(int key, char *key_dir)
 {
-    if (key[0] == ' ')
-        my_putstr("(space)");
-    else
-        my_putstr(key);
+    int term = setupterm(NULL, STDOUT_FILENO, NULL);
+
+    if (key == 260) {
+        key_dir = tigetstr("kcuu1");
+        my_putstr_key_dir(key_dir);
+    }
+    if (key == 261) {
+        key_dir = tigetstr("kcud1");
+        my_putstr_key_dir(key_dir);
+    }
+    term++;
 }
 
-static void print_key(char *str, char *key)
+static void my_special_putstr(int key)
+{
+    int term = setupterm(NULL, STDOUT_FILENO, NULL);
+    char *key_dir = malloc(sizeof(char) * 10);
+
+    if (key >= 258 && key <= 261) {
+        if (key == 258) {
+            key_dir = tigetstr("kcub1");
+            my_putstr_key_dir(key_dir);
+        }
+        if (key == 259) {
+            key_dir = tigetstr("kcuf1");
+            my_putstr_key_dir(key_dir);
+        } else {
+            handle_other_key(key, key_dir);
+            return;
+        }
+    }
+    if (key == ' ')
+        my_putstr("(space)");
+    else
+        my_putchar(key);
+    term++;
+    //free(key_dir);
+}
+
+static void print_key(char *str, int key)
 {
     my_putstr(str);
-    if (my_strlen(key) != 1)
-        my_special_putstr(key);
-    else
-        my_putstr_key(key);
+    my_special_putstr(key);
     my_putchar('\n');
 }
 

@@ -7,17 +7,6 @@
 
 #include "tetris.h"
 
-static void free_key(keys_t *key)
-{
-    free(key->left);
-    free(key->right);
-    free(key->turn);
-    free(key->drop);
-    free(key->quit);
-    free(key->pause);
-    free(key);
-}
-
 static void free_map(map_t *m, tetris_t *t)
 {
     for (int i = 0; i != t->size_g[0]; i++)
@@ -46,7 +35,7 @@ static void free_struct(tetris_t *t, keys_t *key, map_t *m)
     free(t->size_t);
     free(t->size_g);
     free(t);
-//    free_key(key);
+    free(key);
 }
 
 static void init_read(void)
