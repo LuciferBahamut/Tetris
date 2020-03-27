@@ -7,15 +7,33 @@
 
 #include "tetris.h"
 
+static char **add_text(char **score)
+{
+    char *text = "- Score";
+
+    for (int i = 4, j = 0; text[j] != '\0'; j++, i++)
+        score[3][i] = text[j];
+    text = "- Level";
+    for (int i = 4, j = 0; text[j] != '\0'; j++, i++)
+        score[5][i] = text[j];
+    text = "- Lines";
+    for (int i = 4, j = 0; text[j] != '\0'; j++, i++)
+        score[6][i] = text[j];
+    text = "- Time";
+    for (int i = 4, j = 0; text[j] != '\0'; j++, i++)
+        score[8][i] = text[j];
+    return (score);
+}
+
 static char **create_score(void)
 {
-    char **score = malloc(sizeof(char *) * 20);
+    char **score = malloc(sizeof(char *) * 12);
 
-    for (int i = 0; i != 20; i++)
+    for (int i = 0; i != 12; i++)
         score[i] = malloc(sizeof(char) * 31);
     score[0] = "/--Score---------------------\\";
-    score[19] = "\\----------------------------/";
-    for (int i = 1; i != 19; i++) {
+    score[10] = "\\----------------------------/";
+    for (int i = 1; i != 10; i++) {
         for (int j = 0; j != 30; j++) {
             if (j == 0 || j == 29)
                 score[i][j] = '|';
@@ -24,6 +42,7 @@ static char **create_score(void)
         }
         score[i][30] = '\0';
     }
+    score = add_text(score);
     return (score);
 }
 
