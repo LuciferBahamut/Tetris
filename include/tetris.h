@@ -31,6 +31,13 @@ typedef struct keys_st
     char *pause;
 } keys_t;
 
+typedef struct map_st
+{
+    char **map;
+    char **next;
+    char **score;
+} map_t;
+
 typedef struct tetris_st
 {
     char **names;
@@ -46,8 +53,8 @@ typedef struct tetris_st
     int debug;
 } tetris_t;
 
-void fill_struct(tetris_t *t, keys_t *key);
-void fill_keys(keys_t *key);
+void fill_struct(tetris_t *t, keys_t *key, map_t *m);
+void fill_keys_map(keys_t *key, map_t *m, tetris_t *t);
 void get_stats(tetris_t *t);
 int get_space(char *str);
 char **split_str(char *str, char **tabb);
@@ -71,7 +78,7 @@ void put_name_tetriminos_inv(char *name);
 void put_next(char *str, int next);
 void put_size(char *str, int *size);
 
-void game(tetris_t *t, keys_t *key);
+void game(tetris_t *t, keys_t *key, map_t *m);
 
 void my_putchar(char c);
 int my_strcmp(char *str1, char const *str2);

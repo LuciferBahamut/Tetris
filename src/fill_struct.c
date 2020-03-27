@@ -68,7 +68,7 @@ void get_stats(tetris_t *t)
     }
 }
 
-void fill_struct(tetris_t *t, keys_t *key)
+void fill_struct(tetris_t *t, keys_t *key, map_t *m)
 {
     t->nbr_t = nbr_tetriminos("./tetriminos");
     t->names = malloc(sizeof(char *) * t->nbr_t);
@@ -85,9 +85,9 @@ void fill_struct(tetris_t *t, keys_t *key)
         t->color[i] = 0;
         t->valid[i] = 1;
     }
-    fill_keys(key);
     get_other_things(t);
     get_names(t);
     get_address(t);
     get_stats(t);
+    fill_keys_map(key, m, t);
 }

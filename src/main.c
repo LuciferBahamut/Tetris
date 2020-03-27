@@ -18,8 +18,20 @@ static void free_key(keys_t *key)
     free(key);
 }
 
-static void free_struct(tetris_t *t, keys_t *key)
+static void free_map(map_t *m, tetris_t *t)
 {
+    for (int i = 0; i != t->size_g[0]; i++)
+        free(m->map[i]);
+    for (int i = 1; i != 9; i++)
+        free(m->next[i]);
+    free(m->map);
+    free(m->next);
+    free(m->score);
+}
+
+static void free_struct(tetris_t *t, keys_t *key, map_t *m)
+{
+    free_map(m, t);
     for (int i = 0; i != t->nbr_t; i++) {
         free(t->shapes[i]);
         free(t->address[i]);
@@ -59,14 +71,15 @@ int main(int ac, char **av)
 {
     tetris_t *t = malloc(sizeof(tetris_t));
     keys_t *key = malloc(sizeof(keys_t));
+    map_t *m = malloc(sizeof(map_t));
 
-    fill_struct(t, key);
+    fill_struct(t, key, m);
     gest_arg_long(ac, av, key, t);
     if (t->debug != 0) {
         display_debug(t, key);
         init_read();
-        game(t, key);
     }
-    free_struct(t, key);
+    game(t, key, m);
+    free_struct(t, key, m);
     return (0);
 }

@@ -7,39 +7,20 @@
 
 #include "tetris.h"
 
-static char **create_map(int nbl, int nbc)
-{
-    char **map = malloc(sizeof(char *) * nbl);
-
-    for (int i = 0; i != nbl; i++) {
-        map[i] = malloc(sizeof(char) * nbc + 1);
-        for (int j = 0; j != nbc; j++) {
-            if (j == 0 || j == nbc - 1)
-                map[i][j] = '|';
-            else if (i == 0 || i == nbl - 1) {
-                if (j != 0 && j != nbc - 1)
-                    map[i][j] = '-';
-            }
-            else
-                map[i][j] = ' ';
-        }
-        map[i][nbc] = '\0';
-    }
-    map[0][0] = '/';
-    map[nbl - 1][0] = '\\';
-    map[nbl - 1][nbc - 1] = '/';
-    map[0][nbc - 1] = '\\';
-    return (map);
-}
-
-static void window(int *nb, char **map, tetris_t *t, keys_t *key)
+static void window(map_t *m, tetris_t *t, keys_t *key)
 {
     int g;
+    int x = t->size_g[0];
+    int y = t->size_g[1] / 2;
 
     while (1) {
         clear();
-        for (int i = 0; i < nb[0]; i++)
-            mvprintw((LINES / 2) - nb[0] + i, (COLS / 2) - (nb[1] / 2), map[i]);
+        for (int i = 0; i < t->size_g[0]; i++)
+            mvprintw((LINES / 2) - x + i, (COLS / 2) - y, m->map[i]);
+        for (int i = 0; i < 10; i++)
+            mvprintw(6 + i, ((COLS / 2) - y) + (t->size_g[1] + 4), m->next[i]);
+        for (int i = 0; i < 20; i++)
+            mvprintw((LINES / 4) + i, (COLS - (COLS / 2)) - t->size_g[1], m->score[i]);
         refresh();
         g = getch();
         if (g == 32)
@@ -47,14 +28,11 @@ static void window(int *nb, char **map, tetris_t *t, keys_t *key)
     }
 }
 
-void game(tetris_t *t, keys_t *key)
+void game(tetris_t *t, keys_t *key, map_t *m)
 {
-    char **map = create_map(t->size_g[0], (t->size_g[1] * 2));
-
     t->size_g[1] = t->size_g[1] * 2;
     initscr();
     keypad(stdscr, TRUE);
-    window(t->size_g, map, t, key);
+    window(m, t, key);
     endwin();
-    free(map);
 }
