@@ -22,11 +22,11 @@ static void handle_other_key(int key, char *key_dir)
     int term = setupterm(NULL, STDOUT_FILENO, NULL);
 
     if (key == 260) {
-        key_dir = tigetstr("kcuu1");
+        key_dir = my_strcpy(key_dir, tigetstr("kcuu1"));
         my_putstr_key_dir(key_dir);
     }
     if (key == 261) {
-        key_dir = tigetstr("kcud1");
+        key_dir = my_strcpy(key_dir, tigetstr("kcud1"));
         my_putstr_key_dir(key_dir);
     }
     term++;
@@ -39,11 +39,11 @@ static void my_special_putstr(int key)
 
     if (key >= 258 && key <= 261) {
         if (key == 258) {
-            key_dir = tigetstr("kcub1");
+            key_dir = my_strcpy(key_dir, tigetstr("kcub1"));
             my_putstr_key_dir(key_dir);
         }
         if (key == 259) {
-            key_dir = tigetstr("kcuf1");
+            key_dir = my_strcpy(key_dir, tigetstr("kcuf1"));
             my_putstr_key_dir(key_dir);
         } else {
             handle_other_key(key, key_dir);
@@ -55,7 +55,7 @@ static void my_special_putstr(int key)
     else
         my_putchar(key);
     term++;
-    //free(key_dir);
+    free(key_dir);
 }
 
 static void print_key(char *str, int key)
