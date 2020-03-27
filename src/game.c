@@ -20,7 +20,7 @@ static void window(map_t *m, tetris_t *t, keys_t *key)
         for (int i = 0; i < 10; i++)
             mvprintw(6 + i, ((COLS / 2) - y) + (t->size_g[1] + 4), m->next[i]);
         for (int i = 0; i < 20; i++)
-            mvprintw((LINES / 4) + i, (COLS - (COLS / 2)) - t->size_g[1], m->score[i]);
+            mvprintw((LINES / 4) + i, 10, m->score[i]);
         refresh();
         g = getch();
         if (g == 32)
