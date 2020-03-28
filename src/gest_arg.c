@@ -9,7 +9,7 @@
 
 struct option op_l[] =
 {
-    {"help", 0, NULL, 1},
+    {"help", 0, NULL, 9},
     {"level", 1, NULL, 'L'},
     {"key-left", 1, NULL, 'l'},
     {"key-right", 1, NULL, 'r'},
@@ -81,12 +81,11 @@ int gest_arg_long(int ac, char **av, keys_t *key, tetris_t *t)
 {
     char c = 0;
 
-    while (1) {
-        c = getopt_long(ac, av, "1L:l:r:t:d:q:p:2:wD", op_l, NULL);
-        if (c == -1)
-            break;
+    while ((c = getopt_long(ac, av, "L:l:r:t:d:q:p:wD", op_l, NULL)) != -1) {
+        if (c == '?')
+            return (ERROR);
         switch (c) {
-        case 1 : return (display_help(av[0]));
+        case 9 : return (display_help(av[0]));
         case 'L' : verif_nbr(t, optarg);
             break;
         case 'l' : key->left = get_key(optarg, key->left);
