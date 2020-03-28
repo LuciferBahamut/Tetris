@@ -20,6 +20,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <sys/ioctl.h>
+#include <time.h>
 
 typedef struct keys_st
 {
@@ -36,6 +37,7 @@ typedef struct map_st
     char **map;
     char **next;
     char **score;
+    char **title;
 } map_t;
 
 typedef struct tetris_st

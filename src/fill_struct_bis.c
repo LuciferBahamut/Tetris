@@ -102,4 +102,5 @@ void fill_keys_map(keys_t *key, map_t *m, tetris_t *t)
     m->map = create_map(t->size_g[0], (t->size_g[1] * 2));
     m->next = create_next();
     m->score = create_score();
+    m->title = create_tetris_text();
 }

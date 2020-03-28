@@ -17,10 +17,8 @@ static void my_putstr_key_dir(char *str)
     }
 }
 
-static void handle_other_key(int key, char *key_dir)
+static void handle_other_key(int key, char *key_dir, int term)
 {
-    int term = setupterm(NULL, STDOUT_FILENO, NULL);
-
     if (key == 260) {
         key_dir = my_strcpy(key_dir, tigetstr("kcuu1"));
         my_putstr_key_dir(key_dir);
@@ -46,7 +44,7 @@ static void my_special_putstr(int key)
             key_dir = my_strcpy(key_dir, tigetstr("kcuf1"));
             my_putstr_key_dir(key_dir);
         } else {
-            handle_other_key(key, key_dir);
+            handle_other_key(key, key_dir, term);
             return;
         }
     }
@@ -54,7 +52,6 @@ static void my_special_putstr(int key)
         my_putstr("(space)");
     else
         my_putchar(key);
-    term++;
     free(key_dir);
 }
 
