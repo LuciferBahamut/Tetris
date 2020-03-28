@@ -9,6 +9,13 @@
 
 static void get_other_things(tetris_t *t)
 {
+    for (int i = 0; i != t->nbr_t; i++) {
+        t->size_t[i] = malloc(sizeof(int) * 2);
+        for (int j = 0; j != 2; j++)
+            t->size_t[i][j] = 0;
+        t->color[i] = 0;
+        t->valid[i] = 1;
+    }
     t->next = 1;
     t->level = 1;
     t->size_g[0] = 20;
@@ -68,9 +75,11 @@ void get_stats(tetris_t *t)
     }
 }
 
-void fill_struct(tetris_t *t, keys_t *key, map_t *m)
+int fill_struct(tetris_t *t, keys_t *key, map_t *m)
 {
     t->nbr_t = nbr_tetriminos("./tetriminos");
+    if (t->nbr_t == 84)
+        return (ERROR);
     t->names = malloc(sizeof(char *) * t->nbr_t);
     t->address = malloc(sizeof(char *) * t->nbr_t);
     t->valid = malloc(sizeof(int) * t->nbr_t);
@@ -78,16 +87,10 @@ void fill_struct(tetris_t *t, keys_t *key, map_t *m)
     t->size_t = malloc(sizeof(int *) * t->nbr_t);
     t->shapes = malloc(sizeof(char *) * t->nbr_t);
     t->size_g = malloc(sizeof(int) * 2);
-    for (int i = 0; i != t->nbr_t; i++) {
-        t->size_t[i] = malloc(sizeof(int) * 2);
-        for (int j = 0; j != 2; j++)
-            t->size_t[i][j] = 0;
-        t->color[i] = 0;
-        t->valid[i] = 1;
-    }
     get_other_things(t);
     get_names(t);
     get_address(t);
     get_stats(t);
     fill_keys_map(key, m, t);
+    return (SUCCESS);
 }

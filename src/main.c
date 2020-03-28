@@ -62,7 +62,8 @@ int main(int ac, char **av)
     keys_t *key = malloc(sizeof(keys_t));
     map_t *m = malloc(sizeof(map_t));
 
-    fill_struct(t, key, m);
+    if (fill_struct(t, key, m) == ERROR)
+        return (ERROR);
     gest_arg_long(ac, av, key, t);
     if (t->debug != 0) {
         display_debug(t, key);
@@ -70,5 +71,5 @@ int main(int ac, char **av)
     }
     game(t, key, m);
     free_struct(t, key, m);
-    return (0);
+    return (SUCCESS);
 }

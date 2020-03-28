@@ -50,4 +50,3 @@ void stock_stats(tetris_t *t, char *buff, long int size, int nbr)
     free(split);
     free(stat);
 }
-

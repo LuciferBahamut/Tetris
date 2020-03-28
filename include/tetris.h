@@ -53,7 +53,7 @@ typedef struct tetris_st
     int debug;
 } tetris_t;
 
-void fill_struct(tetris_t *t, keys_t *key, map_t *m);
+int fill_struct(tetris_t *t, keys_t *key, map_t *m);
 void fill_keys_map(keys_t *key, map_t *m, tetris_t *t);
 void get_stats(tetris_t *t);
 int get_space(char *str);
