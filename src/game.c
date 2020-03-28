@@ -38,12 +38,15 @@ static void display_title(char **title)
 static void print_next_tetri(tetris_t *t)
 {
     int rdm = rand() % t->nbr_t;
+    char **tetri;
 
     while (t->valid[rdm] != 1)
         rdm = rand() % t->nbr_t;
+    tetri = split_tetri(t, rdm);
     attron(COLOR_PAIR(t->color[rdm]));
-//    for (int i = 0; i !=)
-    mvprintw(35, 35, t->shapes[rdm]);
+    for (int i = 0; i != count_lines(t->shapes[rdm]); i++)
+        mvprintw(35 + i, 35, t->shapes[rdm]);
+    free_split(tetri, t->shapes[rdm]);
     attroff(COLOR_PAIR(t->color[rdm]));
 }
 
@@ -70,18 +73,10 @@ static void window(map_t *m, tetris_t *t, keys_t *key)
     }
 }
 
-void split_tetri(tetris_t *t)
-{
-    for (int i = 0; i != t->nbr_t; i++)
-        if (t->shapes[i][0] == '\n') {
-            for (int j = 1; t->shapes[i][j] != '\0'; j++)
-                t->shapes[i][j - 1] = t->shapes[i][j];
-        }
-}
-
 void game(tetris_t *t, keys_t *key, map_t *m)
 {
     t->size_g[1] = t->size_g[1] * 2;
+    clean_str(t);
     srand(time(0));
     initscr();
     curs_set(0);
