@@ -61,10 +61,15 @@ int main(int ac, char **av)
     tetris_t *t = malloc(sizeof(tetris_t));
     keys_t *key = malloc(sizeof(keys_t));
     map_t *m = malloc(sizeof(map_t));
+    int ret = 0;
 
     if (fill_struct(t, key, m) == ERROR)
         return (ERROR);
-    gest_arg_long(ac, av, key, t);
+    ret = gest_arg_long(ac, av, key, t);
+    if (ret == 1)
+        return (SUCCESS);
+    if (ret == ERROR)
+        return (ERROR);
     if (t->debug != 0) {
         display_debug(t, key);
         init_read();

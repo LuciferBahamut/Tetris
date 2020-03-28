@@ -26,5 +26,5 @@ int display_help(char *bin_name)
     my_putstr(OPTIONSA);
     my_putstr(OPTIONSB);
     my_putstr(OPTIONSC);
-    return (SUCCESS);
+    return (1);
 }

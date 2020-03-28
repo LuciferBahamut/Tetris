@@ -60,6 +60,8 @@ static void get_size(tetris_t *t, char *str)
 static void gest_arg_long_bis(char c, keys_t *key, tetris_t *t, char *str)
 {
     switch (c) {
+    case 't' : key->turn = get_key(optarg, key->turn);
+        break;
     case 'd' : key->drop = get_key(str, key->drop);
         break;
     case 'q' : key->quit = get_key(str, key->quit);
@@ -81,6 +83,8 @@ int gest_arg_long(int ac, char **av, keys_t *key, tetris_t *t)
 
     while (1) {
         c = getopt_long(ac, av, "1L:l:r:t:d:q:p:2:wD", op_l, NULL);
+        if (c == -1)
+            break;
         switch (c) {
         case 1 : return (display_help(av[0]));
         case 'L' : verif_nbr(t, optarg);
@@ -89,12 +93,8 @@ int gest_arg_long(int ac, char **av, keys_t *key, tetris_t *t)
             break;
         case 'r' : key->right = get_key(optarg, key->right);
             break;
-        case 't' : key->turn = get_key(optarg, key->turn);
-            break;
         }
         gest_arg_long_bis(c, key, t, optarg);
-        if (c == -1)
-            break;
     }
-    return (0);
+    return (SUCCESS);
 }
