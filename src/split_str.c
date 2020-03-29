@@ -28,11 +28,14 @@ void free_split(char **split, char *tetri)
 
 char **clean_str(tetris_t *t)
 {
-    for (int i = 0; i != t->nbr_t; i++)
-        if (t->shapes[i][0] == '\n') {
+    for (int i = 0; i != t->nbr_t; i++) {
+        if (t->shapes[i] == NULL)
+            continue;
+        else if (t->shapes[i][0] == '\n') {
             for (int j = 1; t->shapes[i][j] != '\0'; j++)
                 t->shapes[i][j - 1] = t->shapes[i][j];
         }
+    }
     return (t->shapes);
 }
 
@@ -43,7 +46,7 @@ char **split_tetri(tetris_t *t, int nbr)
 
     for (int i = 0; i != count; i++)
         split[i] = malloc(sizeof(char) * my_strlen(t->shapes[nbr]));
-    for(int i = 0, j = 0, z = 0; t->shapes[nbr][i] != '\0'; i++, z++) {
+    for (int i = 0, j = 0, z = 0; t->shapes[nbr][i] != '\0'; i++, z++) {
         if (t->shapes[nbr][i] == '\n') {
             split[j][z + 1] = '\0';
             i++;
@@ -57,11 +60,11 @@ char **split_tetri(tetris_t *t, int nbr)
 
 char **split_str(char *str, char **tabb)
 {
-    for (int i = 0, j = 0, z = 0; str[i] != '\0'; i++, z++) {
-        if (str[i + 1] == ' ')
-            tabb[j][z + 1] = '\0';
+    int j = 0;
+
+    for (int i = 0, z = 0; str[i] != '\0'; i++, z++) {
         if (str[i] == ' ') {
-            tabb[j][z + 1] = '\0';
+            tabb[j][z] = '\0';
             i++;
             j++;
             z = 0;

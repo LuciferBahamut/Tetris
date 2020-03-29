@@ -66,11 +66,12 @@ void get_stats(tetris_t *t)
         }
         buff = malloc(sizeof(char) * st.st_size);
         rd = read(fd, buff, st.st_size);
-        if (rd == -1) {
+        if (rd == -1 || rd == 0) {
             t->valid[i] = 0;
             continue;
         }
-        stock_stats(t, buff, st.st_size, i);
+        if (t->valid[i] != 0)
+            stock_stats(t, buff, st.st_size, i);
         free(buff);
     }
 }
@@ -78,7 +79,7 @@ void get_stats(tetris_t *t)
 int fill_struct(tetris_t *t, keys_t *key, map_t *m)
 {
     t->nbr_t = nbr_tetriminos("./tetriminos");
-    if (t->nbr_t == 84)
+    if (t->nbr_t == 84 || t->nbr_t == 0)
         return (ERROR);
     t->names = malloc(sizeof(char *) * t->nbr_t);
     t->address = malloc(sizeof(char *) * t->nbr_t);

@@ -7,7 +7,7 @@
 
 #include "tetris.h"
 
-void init_pair_color(void)
+static void init_pair_color(void)
 {
     start_color();
     init_pair(0, COLOR_BLACK, COLOR_BLACK);
