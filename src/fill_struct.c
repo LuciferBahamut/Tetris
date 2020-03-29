@@ -52,21 +52,20 @@ void get_address(tetris_t *t)
 
 void get_stats(tetris_t *t)
 {
-    int fd = 0;
-    int rd = 0;
+    int op[2] = {0, 0};
     struct stat st;
     char *buff;
 
     for (int i = 0; i != t->nbr_t; i++) {
         stat(t->address[i], &st);
-        fd = open(t->address[i], O_RDONLY);
-        if (fd == -1) {
+        op[0] = open(t->address[i], O_RDONLY);
+        if (op[0] == -1) {
             t->valid[i] = 0;
             continue;
         }
         buff = malloc(sizeof(char) * st.st_size);
-        rd = read(fd, buff, st.st_size);
-        if (rd == -1 || rd == 0) {
+        op[1] = read(op[0], buff, st.st_size);
+        if (op[1] == -1 || op[1] == 0) {
             t->valid[i] = 0;
             continue;
         }
