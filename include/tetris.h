@@ -5,8 +5,8 @@
 ** .h
 */
 
-#ifndef __TETRIS_H__
-#define __TETRIS_H__
+#ifndef _TETRIS_H_
+#define _TETRIS_H_
 
 #include <getopt.h>
 #include <curses.h>

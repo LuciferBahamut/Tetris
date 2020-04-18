@@ -7,6 +7,24 @@
 
 #include "tetris.h"
 
+static void init_read(void)
+{
+    char *buffer = malloc(sizeof(char) * 2);
+    static struct termios old;
+    static struct termios new;
+
+    ioctl(0, TCGETS, &old);
+    ioctl(0, TCGETS, &new);
+    new.c_lflag &= ~ECHO;
+    new.c_lflag &= ~ICANON;
+    new.c_cc[VMIN] = 1;
+    new.c_cc[VTIME] = 0;
+    ioctl(0, TCSETS, &new);
+    read(0, buffer, 1);
+    free(buffer);
+    ioctl(0, TCSETS, &old);
+}
+
 static void free_map(map_t *m, tetris_t *t)
 {
     for (int i = 0; i != t->size_g[0]; i++)
@@ -36,24 +54,6 @@ static void free_struct(tetris_t *t, keys_t *key, map_t *m)
     free(t->size_g);
     free(t);
     free(key);
-}
-
-static void init_read(void)
-{
-    char *buffer = malloc(sizeof(char) * 2);
-    static struct termios old;
-    static struct termios new;
-
-    ioctl(0, TCGETS, &old);
-    ioctl(0, TCGETS, &new);
-    new.c_lflag &= ~ECHO;
-    new.c_lflag &= ~ICANON;
-    new.c_cc[VMIN] = 1;
-    new.c_cc[VTIME] = 0;
-    ioctl(0, TCSETS, &new);
-    read(0, buffer, 1);
-    free(buffer);
-    ioctl(0, TCSETS, &old);
 }
 
 int main(int ac, char **av)
