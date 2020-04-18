@@ -60,7 +60,7 @@ static void get_size(tetris_t *t, char *str)
 static void gest_arg_long_bis(char c, keys_t *key, tetris_t *t, char *str)
 {
     switch (c) {
-    case 't' : key->turn = get_key(optarg, key->turn);
+    case 't' : key->turn = get_key(str, key->turn);
         break;
     case 'd' : key->drop = get_key(str, key->drop);
         break;

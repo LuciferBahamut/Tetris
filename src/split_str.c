@@ -48,7 +48,7 @@ char **split_tetri(tetris_t *t, int nbr)
         split[i] = malloc(sizeof(char) * my_strlen(t->shapes[nbr]));
     for (int i = 0, j = 0, z = 0; t->shapes[nbr][i] != '\0'; i++, z++) {
         if (t->shapes[nbr][i] == '\n') {
-            split[j][z + 1] = '\0';
+            split[j][z] = '\0';
             i++;
             j++;
             z = 0;
@@ -69,7 +69,13 @@ char **split_str(char *str, char **tabb)
             j++;
             z = 0;
         }
+        if (str[i + 1] == '\0') {
+            tabb[j][z] = str[i];
+            tabb[j][z + 1] = '\0';
+            break;
+        }
         tabb[j][z] = str[i];
     }
+    tabb[3] = NULL;
     return (tabb);
 }

@@ -7,29 +7,36 @@
 
 #include "tetris.h"
 
+static char *cp_name(char *name)
+{
+    int i = 0;
+    char *copy = malloc(sizeof(char) * (my_strlen(name) + 1));
+
+    for (; name[i] != '\0'; i++)
+        copy[i] = name[i];
+    copy[i] = '\0';
+    return (copy);
+}
+
 static char *get_after_point(char *name)
 {
-    int point = 0;
+    int i = 0;
     int j = 0;
-    char *after = malloc(sizeof(char) * my_strlen(name));
+    char *copy = cp_name(name);
+    char *after = malloc(sizeof(char) * (my_strlen(copy) + 1));
 
-    for (int i = 0; name[i] != '\0'; i++) {
-        if (name[i] == '.')
-            point++;
-        if (point >= 1)
-            for (; name[i] != '\0'; j++, i++)
-                after[j] = name[i];
-        else
-            continue;
-    }
-    for (j = 0; after[j] != 'o'; j++);
-    after[j+1] = '\0';
+    for (i = 0; copy[i] != '.'; i++);
+    for (; copy[i] != 'o'; j++, i++)
+            after[j] = copy[i];
+    after[j] = copy[i];
+    after[j + 1] = '\0';
+    free(copy);
     return (after);
 }
 
 char *get_full_names(char *name)
 {
-    char *before = malloc(sizeof(char) * my_strlen(name));
+    char *before = malloc(sizeof(char) * (my_strlen(name) + 1));
 
     for (int i = 0; name[i] != '\0'; i++) {
         if (name[i] == '.') {

@@ -33,7 +33,7 @@ void stock_stats(tetris_t *t, char *buff, long int size, int nbr)
 {
     int i = 0;
     char *stat = malloc(sizeof(char *) * size);
-    char **split = malloc(sizeof(char *) * 3);
+    char **split = malloc(sizeof(char *) * 4);
 
     for (;buff[i] != '\n' || buff[i] == '\0'; i++)
         stat[i] = buff[i];
@@ -41,7 +41,7 @@ void stock_stats(tetris_t *t, char *buff, long int size, int nbr)
     if (get_space(stat) != 2)
         t->valid[nbr] = 0;
     for (int j = 0; j != 3; j++)
-        split[j] = malloc(sizeof(char) * my_strlen(stat));
+        split[j] = malloc(sizeof(char) * (my_strlen(stat) + 1));
     split = split_str(stat, split);
     put_stats_in_struct(split, t, nbr);
     get_tetriminos_shape(buff, t, nbr);
